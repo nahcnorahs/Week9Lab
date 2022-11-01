@@ -6,10 +6,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import models.User;
 import java.util.List;
+import javax.persistence.EntityManager;
 import models.Role;
 
 public class UserDB {
 
+    public User get(String email) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            User user = em.find(User.class, email);
+            return user;
+        } finally {
+            em.close();
+        }
+    }
     
     public List<User> getAll() throws Exception {
         ConnectionPool cp = null;
