@@ -10,12 +10,12 @@ public class UserDB {
 
     
     
-    public List<User> getAll(String email) throws Exception {
+    public List<User> getAll() throws Exception {
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            Role roles = em.find(Role.class, email);
-            return roles.getUserList();
+            List<User> users = em.createNamedQuery("User.findAll", User.class).getResultList();
+            return users;
             }
            finally {
             em.close();
@@ -26,11 +26,11 @@ public class UserDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-          User user = em.find(User.class, email);
+            User users = (User) em.createNamedQuery("User.findAll", User.class).getResultList();
           //System.out.println("first name: " + user.getRole().getRoleName());
           //get all users as the same role as that user
           //List<User> users = user.getRole().getUserList();
-            return user;
+            return users;
         } finally {
             em.close();
           

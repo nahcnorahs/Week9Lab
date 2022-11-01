@@ -10,15 +10,15 @@ import models.Role;
 public class UserService {
     
 
-    public User getUser(String email) throws Exception {
+    public User get(String email) throws Exception {
         UserDB db = new UserDB();
         User user = db.get(email);
         return user;
     }
 
-    public List<User> getAll(String email) throws Exception {
+    public List<User> getAll() throws Exception {
         UserDB db = new UserDB();
-        List<User> users = db.getAll(email);
+        List<User> users = db.getAll();
         return users;
     }
 
