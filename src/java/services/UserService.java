@@ -10,7 +10,7 @@ import models.Role;
 public class UserService {
     
 
-    public User get(String email) throws Exception {
+    public User getUser(String email) throws Exception {
         UserDB db = new UserDB();
         User user = db.get(email);
         return user;
