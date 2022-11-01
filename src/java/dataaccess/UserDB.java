@@ -27,9 +27,7 @@ public class UserDB {
         
         try {
             User users = (User) em.createNamedQuery("User.findAll", User.class).getResultList();
-          //System.out.println("first name: " + user.getRole().getRoleName());
-          //get all users as the same role as that user
-          //List<User> users = user.getRole().getUserList();
+          
             return users;
         } finally {
             em.close();
