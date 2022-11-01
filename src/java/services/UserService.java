@@ -16,32 +16,34 @@ public class UserService {
         return user;
     }
 
-    public List<User> getAll() throws Exception {
+    public List<User> getAll(String email) throws Exception {
         UserDB db = new UserDB();
-        List<User> users = db.getAll();
-        
+        List<User> users = db.getAll(email);
         return users;
     }
 
     public void update(String email, String first_name, String last_name, String password, int roleId) throws Exception {
-        UserDB db = new UserDB();
-        RoleDB roleDB = new RoleDB();
-        Role role = roleDB.getRole(roleId);
-        User user = new User(email, first_name, last_name, password, role);
-        db.update(user);
+        UserDB userDB = new UserDB();
+        User user = userDB.get(email);
+        user.setFirstName(first_name);
+        user.setLastName(last_name);
+        user.setPassword(password);
+        
+        userDB.update(user);
     }
 
     public void delete(String email) throws Exception {
-        UserDB db = new UserDB();
-        User user = get(email);
-        db.delete(user);;
+        UserDB userDB = new UserDB();
+        User user = userDB.get(email);
+        userDB.delete(user);
     }
 
     public void insert(String email, String first_name, String last_name, String password, int roleId) throws Exception {
+        User user = new User(email, first_name, last_name, password);
         UserDB db = new UserDB();
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.getRole(roleId);
-        User user = new User(email, first_name, last_name, password, role);
+        user.setRole(role);
         db.insert(user);
     }
 
